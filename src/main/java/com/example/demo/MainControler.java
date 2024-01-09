@@ -1,36 +1,39 @@
 package com.example.demo;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Scanner;
+import java.sql.*;
+
 
 @RestController
 public class MainControler {
-    public static String loadFromFile(String filename) throws FileNotFoundException {
-        int lineNumber = 1;
-        String txt = "";
-        try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(filename)))) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                txt += line;
-                lineNumber++;
+    public static void main(String[] args) {
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/save_account", "root", "Michal-123")) {
+            Statement statement = null;
+            try {
+                statement = con.createStatement();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
+            statement.executeQuery("SELECT * FROM acount;");
+            ResultSet result = statement.getResultSet();
+            while (result.next()) {
+                System.out.println(result.getString("Name") + " : " + result.getString("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-     return txt;
     }
-    @GetMapping("/scifi")
-    public String scifi() throws FileNotFoundException {
-        return loadFromFile("scifi");
+    @GetMapping("/accounts")
+    public String accounts () {
+    return "hello";
     }
-    @GetMapping("/romantic")
-    public String romantic() throws FileNotFoundException  {
-        return loadFromFile("romantic");
-    }
-    @GetMapping("/historic")
-    public String historic() throws FileNotFoundException  {
-        return loadFromFile("historic");
+    @PostMapping("/students")
+    public Account createStudent(@RequestBody Account account) {
+        AccountService.createNewAccount(account);
+        return account;
     }
 }
