@@ -23,6 +23,7 @@ public class MainControler {
             while (result.next()) {
                 System.out.println(result.getString("Name") + " : " + result.getString("id"));
             }
+            System.out.println(new Account("jan", "prosim", "pracuj"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -36,4 +37,6 @@ public class MainControler {
         AccountService.createNewAccount(account);
         return account;
     }
+
+
 }

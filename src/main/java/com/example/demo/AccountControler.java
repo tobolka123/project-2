@@ -1,23 +1,57 @@
 package com.example.demo;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1")
 public class AccountControler {
-    List<Account> listOfAccounts = new ArrayList<>();
-    @GetMapping("/students")
-    public List<Account> getAccount() {
-        listOfAccounts.add(new Account("Petr", "Novák", "35"));
-        listOfAccounts.add(new Account("Jana", "Novakova", "18"));
-        return listOfAccounts;
+    @Autowired
+    AccountService accserv;
+    @GetMapping("/user/{id}")
+    public Account getAccount(@PathVariable long id, @RequestParam(value = "detail", required = false) boolean detail) {
+        for (Account acc: accserv.getAccounts()) {
+            if (id == acc.getId()) {
+                if (!detail) {
+                    return acc;
+                } else {
+                    return acc;
+                }
+            }
+        }
+        return null;
     }
-    @GetMapping("/student/{name}/{surname}/{id}")
-    public Account getSomeAccount(@PathVariable String name, @PathVariable String surname, @PathVariable String id) {
-        return new Account(name, surname, id);
+    @GetMapping("/users")
+    public List<Account> getAccounts(@RequestParam(value = "detail", required = false) boolean detail) {
+
+        if (detail) {
+            return accserv.getAccounts();
+        }
+        else {
+            return accserv.getAccounts();
+        }
+    }
+
+    @PutMapping("/user/{id}")
+    public Account changeAccount(@PathVariable long id, @RequestBody Account account) {
+        for (Account acc:accserv.getAccounts()) {
+            if (acc.getId() == id) {
+                acc.setName(account.getName());
+                acc.setSurname(account.getSurname());
+                return acc;
+            }
+        }
+        return null;
+    }
+    @PostMapping("/user")
+    public Account getSomeAccount(@RequestBody Account account) {
+        accserv.createNewAccount(account);
+        return account;
+    }
+    @DeleteMapping("/user/{id}")
+    public void deleteAccount(@PathVariable int id) {
+        accserv.getAccounts().remove(id);
     }
 }

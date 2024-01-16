@@ -16,35 +16,32 @@ public class AccountService {
     }
 
     private static List<Account> accounts= new ArrayList<>();
+    private static List<AccountNOdetail> accountsNo= new ArrayList<>();
 
-    public void createDefualtAccounts() {
-        Account acc = new Account("step", "ahoj", "nejakeid");
-        Account acc2 = new Account("fra", "acc", "ahoj69");
-        acc.setName("Franta");
-        acc2.setSurname("Account");
-
-        accounts.add(acc);
-        accounts.add(acc2);
+    public List<Account> getAccounts() {
+        return accounts;
     }
 
-    public List<Account> returnAccount() {
-        return accounts;
+    public List<AccountNOdetail> getNodetail() {
+        return accountsNo;
     }
 
     public static void createNewAccount(Account account) {
         accounts.add(account);
+        accountsNo.add(new AccountNOdetail(account.getName(), account.getSurname(), account.getPersonID()));
     }
 
     public void deleteAccount(Long id) {
-        accounts.removeIf(account -> account.getPersonID().equals(id));
+        accounts.removeIf(account -> account.getId() == (id));
     }
 
     public void updateAccount(Long id, Account account) {
         for (Account acc: accounts) {
-            if (acc.getPersonID().equals(id)) {
+            if (acc.getId() == (id)) {
                 acc.setName(account.getName());
                 acc.setSurname(account.getSurname());
             }
         }
     }
+
 }
