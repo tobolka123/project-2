@@ -1,7 +1,5 @@
 package com.example.demo;
 
-import java.util.Random;
-
 import java.util.UUID;
 
 public class Account {
@@ -12,10 +10,21 @@ public class Account {
     private static int nextId = 1;
     private long id = nextId++;
 
+    public Account(String name, String surname, String personID, long Id, String uuid) {
+        this.name = name;
+        this.surname = surname;
+        this.personID = personID;
+        this.uuid = uuid;
+        this.id = Id;
+    }
+
     public Account(String name, String surname, String personID) {
         this.name = name;
         this.surname = surname;
         this.personID = personID;
+        this.uuid = UUID.randomUUID().toString();
+    }
+    public Account(){
         this.uuid = UUID.randomUUID().toString();
     }
 
