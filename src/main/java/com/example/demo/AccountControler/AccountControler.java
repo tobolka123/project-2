@@ -1,9 +1,11 @@
 // Michal H. -> jmeno na discordu
-package com.example.demo;
+package com.example.demo.AccountControler;
+import com.example.demo.Account.Account;
+import com.example.demo.AccountNOdetail.AccountNOdetail;
+import com.example.demo.AccountService.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.*;
 import java.util.List;
 
 @RestController

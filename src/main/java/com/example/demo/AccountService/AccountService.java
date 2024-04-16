@@ -1,6 +1,8 @@
-package com.example.demo;
+package com.example.demo.AccountService;
 
-import com.example.demo.AccountNOdetail;
+import com.example.demo.Account.Account;
+import com.example.demo.AccountNOdetail.AccountNOdetail;
+import com.example.demo.AccountRepos.AccountRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,7 @@ public class AccountService {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    private AccountRepos AccountRepos;
+    private com.example.demo.AccountRepos.AccountRepos AccountRepos;
     private static List<Account> accounts= new ArrayList<>();
     private static List<AccountNOdetail> accountsNo= new ArrayList<>();
 

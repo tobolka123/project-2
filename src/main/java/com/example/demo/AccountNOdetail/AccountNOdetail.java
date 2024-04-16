@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.AccountNOdetail;
 
 import org.springframework.stereotype.Service;
 
